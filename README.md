@@ -19,8 +19,6 @@ Predicting whether a chemical structure shares a desired biological effect can h
 
 
 ## Model Requirements
-- Install [cuda-9.0](https://developer.nvidia.com/cuda-downlaods)
-- Install [cudnn-v5.1](https://developer.nvidia.com/cudnn)
 - Install [Tensorflow 1.15](https://www.tensorflow.org/install/gpu)
 - Install [Numpy 1.61.1](https://pypi.org/project/numpy/)
 - Python version >= 3.4.3 is required

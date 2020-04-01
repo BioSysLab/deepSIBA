@@ -7,7 +7,7 @@
 
 (*)Correspondence to: leo@mail.ntua.gr
 
-Implementation of the paper:
+Github repository of the study:
 > DeepSIBA: Chemical Structure-based Inference of Biological Alterations <br>
 > C.Fotis<sup>1(+)</sup>, N.Meimetis<sup>1+</sup>, A.Sardis<sup>1</sup>, LG. Alexopoulos<sup>1,2(*)</sup>
 

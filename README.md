@@ -39,7 +39,7 @@ $ git clone https://github.com/BioSysLab/deepSIBA.git
 ```
 
 ## Data
-Here you can fing all the data produced and used in this study.
+Here you can find all the data produced and used in this study.
 The data and models folders must replace the corresponding empty folders existing on Github, in order to recreate the study. 
 If there are already data and files in these folders for another study, just the contents of the downloaded folder must be copied in the data folder.
  

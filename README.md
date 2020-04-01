@@ -35,7 +35,7 @@ Predicting whether a chemical structure shares a desired biological effect can h
 ## Clone
 ```bash
 # clone the source code on your directory
-$ git clone https://github.com/BioSysLab/deepSIBA
+$ git clone https://github.com/BioSysLab/deepSIBA.git
 ```
 
 ## Data

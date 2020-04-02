@@ -19,9 +19,10 @@ Predicting whether a chemical structure shares a desired biological effect can h
 
 
 ## Model Requirements
-- Install [Tensorflow 1.15](https://www.tensorflow.org/install/gpu)
-- Install [Numpy 1.61.1](https://pypi.org/project/numpy/)
-- Python version >= 3.4.3 is required
+- Install [Tensorflow (version 1.x)](https://www.tensorflow.org/install/gpu)
+- Install [Numpy](https://pypi.org/project/numpy/)
+- Install [Pandas](https://pandas.pydata.org/)
+- Install [rdkit](https://www.rdkit.org/docs/Install.html)
 
 ## Main R Packages used in data pre-processing
 - [topGO](https://bioconductor.org/packages/release/bioc/html/topGO.html)

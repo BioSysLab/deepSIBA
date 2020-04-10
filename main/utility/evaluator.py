@@ -66,7 +66,7 @@ def pearson_r(y_true, y_pred):
     return K.mean(r)
 
 def mse_sliced(y_true,y_pred):
-    condition = K.tf.math.less_equal(y_pred,th)
+    condition = K.tf.math.less_equal(y_pred,0.20)
     indices = K.tf.where(condition)
     slice_true = K.tf.gather_nd(y_true,indices)
     slice_pred = K.tf.gather_nd(y_pred,indices)

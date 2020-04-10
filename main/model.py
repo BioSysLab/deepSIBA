@@ -42,9 +42,11 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import mean_squared_error
 from utility.gaussian import GaussianLayer
+from utility.gaussian import custom_loss
+from utility.evaluator import r_square, get_cindex, pearson_r, mse_sliced, model_evaluate
 
 #Define siamese encoder
-def enc_mols(params, lr_value, conv_width, fp_length):
+def enc_mols(params, lr_value, conv_width, fp_length,max_atoms, num_atom_features,max_degree, num_bond_features):
         
     ### encode smiles
     
@@ -78,17 +80,17 @@ def enc_mols(params, lr_value, conv_width, fp_length):
     return interactionModel
 
 #Define operations of distance module after the siamese encoders
-def net(max_atoms, num_atom_features,max_degree, num_bond_features,encoder_mols):
+def net(p,max_atoms, num_atom_features,max_degree, num_bond_features,encoder_mols,atoms0_1,bonds_1,edges_1,atoms0_2,bonds_2,edges_2):
 	from utility.gaussian import GaussianLayer
     
-	# Initialize model
-	atoms0_1 = Input(name='atom_inputs_1', shape=(max_atoms, num_atom_features),dtype = 'float32')
-	bonds_1 = Input(name='bond_inputs_1', shape=(max_atoms, max_degree, num_bond_features),dtype = 'float32')
-	edges_1 = Input(name='edge_inputs_1', shape=(max_atoms, max_degree), dtype='int32')
+	# Initialize model (They are all passed from jupyter notebook used for training) 
+	#atoms0_1 = Input(name='atom_inputs1', shape=(max_atoms, num_atom_features),dtype = 'float32')
+	#bonds_1 = Input(name='bond_inputs1', shape=(max_atoms, max_degree, num_bond_features),dtype = 'float32')
+	#edges_1 = Input(name='edge_inputs1', shape=(max_atoms, max_degree), dtype='int32')
 
-	atoms0_2 = Input(name='atom_inputs_2', shape=(max_atoms, num_atom_features),dtype = 'float32')
-	bonds_2 = Input(name='bond_inputs_2', shape=(max_atoms, max_degree, num_bond_features),dtype = 'float32')
-	edges_2 = Input(name='edge_inputs_2', shape=(max_atoms, max_degree), dtype='int32')
+	#atoms0_2 = Input(name='atom_inputs2', shape=(max_atoms, num_atom_features),dtype = 'float32')
+	#bonds_2 = Input(name='bond_inputs2', shape=(max_atoms, max_degree, num_bond_features),dtype = 'float32')
+	#edges_2 = Input(name='edge_inputs2', shape=(max_atoms, max_degree), dtype='int32')
 
 	encoded_1 = encoder_mols([atoms0_1,bonds_1,edges_1])
 	encoded_2 = encoder_mols([atoms0_2,bonds_2,edges_2])
@@ -128,9 +130,6 @@ def net(max_atoms, num_atom_features,max_degree, num_bond_features,encoder_mols)
 	fc6 = keras.layers.Dropout(0.3)(fc6)
 
 
-	mu, sigma = GaussianLayer(1, name='main_output')(fc6)
-
-
-	siamese_net = Model(inputs=[atoms0_1,bonds_1,edges_1,atoms0_2,bonds_2,edges_2],outputs=mu)
-	print(siamese_net.summary())
-	return(siamese_net)
+	int_net = keras.Model(inputs=[atoms0_1,bonds_1,edges_1,atoms0_2,bonds_2,edges_2],outputs=fc6)
+	print(int_net.summary())
+	return int_net

@@ -80,7 +80,7 @@ def enc_mols(params, lr_value, conv_width, fp_length,max_atoms, num_atom_feature
     return interactionModel
 
 #Define operations of distance module after the siamese encoders
-def net(p,max_atoms, num_atom_features,max_degree, num_bond_features,encoder_mols,atoms0_1,bonds_1,edges_1,atoms0_2,bonds_2,edges_2):
+def distance_module(p,encoded_mol1,encoded_mol2,max_atoms, num_atom_features,max_degree, num_bond_features):
 	from utility.gaussian import GaussianLayer
     
 	# Initialize model (They are all passed from jupyter notebook used for training) 
@@ -92,11 +92,8 @@ def net(p,max_atoms, num_atom_features,max_degree, num_bond_features,encoder_mol
 	#bonds_2 = Input(name='bond_inputs2', shape=(max_atoms, max_degree, num_bond_features),dtype = 'float32')
 	#edges_2 = Input(name='edge_inputs2', shape=(max_atoms, max_degree), dtype='int32')
 
-	encoded_1 = encoder_mols([atoms0_1,bonds_1,edges_1])
-	encoded_2 = encoder_mols([atoms0_2,bonds_2,edges_2])
-
 	L1_layer = keras.layers.Lambda(lambda tensors:K.abs(tensors[0] - tensors[1]))
-	L1_distance = L1_layer([encoded_1, encoded_2])
+	L1_distance = L1_layer([encoded_mol1, encoded_mol2])
 
 	fc1=keras.layers.Conv1D(128, 17, activation=None, use_bias=False, kernel_initializer='glorot_uniform')(L1_distance)
 	fc1= BatchNormalization(momentum=0.6)(fc1)
@@ -130,6 +127,6 @@ def net(p,max_atoms, num_atom_features,max_degree, num_bond_features,encoder_mol
 	fc6 = keras.layers.Dropout(0.3)(fc6)
 
 
-	int_net = keras.Model(inputs=[atoms0_1,bonds_1,edges_1,atoms0_2,bonds_2,edges_2],outputs=fc6)
-	print(int_net.summary())
-	return int_net
+	#int_net = keras.Model(inputs=[atoms0_1,bonds_1,edges_1,atoms0_2,bonds_2,edges_2],outputs=fc6)
+	#print(int_net.summary())
+	return fc6

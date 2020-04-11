@@ -65,13 +65,15 @@ def pearson_r(y_true, y_pred):
     r = r_num / r_den
     return K.mean(r)
 
-def mse_sliced(y_true,y_pred):
-    condition = K.tf.math.less_equal(y_pred,0.20)
-    indices = K.tf.where(condition)
-    slice_true = K.tf.gather_nd(y_true,indices)
-    slice_pred = K.tf.gather_nd(y_pred,indices)
-    mse_sliced = K.mean(K.square(slice_pred - slice_true), axis=-1)
-    return mse_sliced
+def mse_sliced(th):
+    def mse_similars(y_true,y_pred):
+        condition = K.tf.math.less_equal(y_pred,th)
+        indices = K.tf.where(condition)
+        slice_true = K.tf.gather_nd(y_true,indices)
+        slice_pred = K.tf.gather_nd(y_pred,indices)
+        mse_sliced = K.mean(K.square(slice_pred - slice_true), axis=-1)
+        return mse_sliced
+    return mse_similars
 
 #Model evaluation function
 def model_evaluate(y_pred,Y_cold,thresh,df_cold):

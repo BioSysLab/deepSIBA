@@ -43,13 +43,13 @@ def siba_trainer(train_params, model_params):
     elif train_params["split"] == "5_fold_cv_split":
         outer_loop = train_params["number_folds"]
     #Load unique smiles and tensorize them
-    smiles = pd.read_csv("C:/Users/user/Documents/deepSIBA/learning/data/" + train_params["cell_line"] + "/" + train_params["cell_line"] + "q1smiles.csv", index_col=0)
+    smiles = pd.read_csv("data/" + train_params["cell_line"] + "/" + train_params["cell_line"] + "q1smiles.csv", index_col=0)
     X_atoms, X_bonds, X_edges = tensorise_smiles(smiles.x, model_params["max_degree"], model_params["max_atoms"])
     smiles=list(smiles['x'])
     for i in outer_loop:
         if train_params["split"] == "train_test_split":
-            df = pd.read_csv("C:/Users/user/Documents/deepSIBA/learning/data/" + train_params["cell_line"] + "/" + "train_test_split/" + "train.csv",index_col=0).reset_index(drop=True)
-            df_cold = pd.read_csv("C:/Users/user/Documents/deepSIBA/learning/data/" + train_params["cell_line"] + "/" + "train_test_split/" + "test.csv",index_col=0).reset_index(drop=True)
+            df = pd.read_csv("data/" + train_params["cell_line"] + "/" + "train_test_split/" + "train.csv",index_col=0).reset_index(drop=True)
+            df_cold = pd.read_csv("data/" + train_params["cell_line"] + "/" + "train_test_split/" + "test.csv",index_col=0).reset_index(drop=True)
             smiles_cold = df_cold['rdkit.x']
             smiles_cold2 = df_cold['rdkit.y']
             X_atoms_cold_1, X_bonds_cold_1, X_edges_cold_1 = tensorise_smiles(smiles_cold, model_params["max_degree"], model_params["max_atoms"])
@@ -57,8 +57,8 @@ def siba_trainer(train_params, model_params):
             Y_cold = df_cold.value
             #Y_cold = Y_cold/2
         elif train_params["split"] == "5_fold_cv_split":
-            df = pd.read_csv("C:/Users/user/Documents/deepSIBA/learning/data/" + train_params["cell_line"] + "/" + "5_fold_cv_split/" + "fold_%s/train_%s.csv" %(i+1,i+1),index_col=0).reset_index(drop=True)
-            df_cold = pd.read_csv("C:/Users/user/Documents/deepSIBA/learning/data/" + train_params["cell_line"] + "/" + "5_fold_cv_split/" + "fold_%s/val_%s.csv" %(i+1,i+1),index_col=0).reset_index(drop=True)
+            df = pd.read_csv("data/" + train_params["cell_line"] + "/" + "5_fold_cv_split/" + "fold_%s/train_%s.csv" %(i+1,i+1),index_col=0).reset_index(drop=True)
+            df_cold = pd.read_csv("data/" + train_params["cell_line"] + "/" + "5_fold_cv_split/" + "fold_%s/val_%s.csv" %(i+1,i+1),index_col=0).reset_index(drop=True)
             smiles_cold = df_cold['rdkit.x']
             smiles_cold2 = df_cold['rdkit.y']
             X_atoms_cold_1, X_bonds_cold_1, X_edges_cold_1 = tensorise_smiles(smiles_cold, model_params["max_degree"], model_params["max_atoms"])

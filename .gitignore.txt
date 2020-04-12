@@ -1,3 +1,0 @@
-/results
-/learning/data
-/learning/.ipynb_checkpoints

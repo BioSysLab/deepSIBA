@@ -1,1 +1,1 @@
-__all__ = ['model','deepSIBA_model','deepSIBA_train','deepSIBA_ensembles']
+__all__ = ['deepSIBA_model','deepSIBA_train','deepSIBA_ensembles','deepSIBA_screening']

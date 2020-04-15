@@ -13,4 +13,6 @@
 /learning/screening/chembl
 /learning/screening/cmap
 /learning/deepSIBA_examples.ipynb
-/preprocessing/data
+/preprocessing/data_preprocessing/cmap
+/preprocessing/data_preprocessing/processed_data
+/preprocessing/data_preprocessing/utility

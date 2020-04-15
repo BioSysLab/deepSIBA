@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1586970352752.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "127147852",
+    "id" : "489E46CB",
+    "lastKnownWriteTime" : 1559581603,
+    "last_content_update" : 1559581603,
+    "path" : "~/deepSIBA/preprocessing/kegg_path_analysis.R",
+    "project_path" : "kegg_path_analysis.R",
+    "properties" : {
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

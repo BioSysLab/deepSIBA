@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1586970268729.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "78956562",
+    "id" : "FDFAC1DB",
+    "lastKnownWriteTime" : 1562324386,
+    "last_content_update" : 1562324386,
+    "path" : "~/deepSIBA/preprocessing/distance_score_not_pairwise.r",
+    "project_path" : "distance_score_not_pairwise.r",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,5 +1,14 @@
 /results
-/learning/data
+/learning/data/a375
+/learning/data/pc3
+/learning/data/mcf7
+/learning/data/vcap
+/learning/data/merged
 /learning/.ipynb_checkpoints
-/learning/trained_models
-/learning/screening
+/learning/trained_models/a375
+/learning/trained_models/mcf7
+/learning/trained_models/pc3
+/learning/trained_models/vcap
+/learning/trained_models/merged
+/learning/screening/chembl
+/learning/screening/cmap

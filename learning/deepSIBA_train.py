@@ -53,7 +53,7 @@ def siba_trainer(train_params, model_params):
             df = pd.read_csv("data/" + train_params["cell_line"] + "/" + "train_test_split/" + "train.csv",index_col=0).reset_index(drop=True)
             df_cold = pd.read_csv("data/" + train_params["cell_line"] + "/" + "train_test_split/" + "test.csv",index_col=0).reset_index(drop=True)
             smiles_cold = list(set(list(df_cold['rdkit.x'])+list(df_cold['rdkit.y'])))
-            X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold, max_degree=5, max_atoms = 60)
+            X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold,  model_params["max_degree"], model_params["max_atoms"])
             if train_params["test_value_norm"]:
                 Y_cold = df_cold.value
             else:
@@ -63,7 +63,7 @@ def siba_trainer(train_params, model_params):
             df = pd.read_csv("data/" + train_params["cell_line"] + "/" + "alldata/" + "alldata_" + train_params["cell_line"] + ".csv",index_col=0).reset_index(drop=True)
             df_cold = pd.read_csv("data/" + train_params["cell_line"] + "/" + "train_test_split/" + "test.csv",index_col=0).reset_index(drop=True)
             smiles_cold = list(set(list(df_cold['rdkit.x'])+list(df_cold['rdkit.y'])))
-            X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold, max_degree=5, max_atoms = 60)
+            X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold,  model_params["max_degree"], model_params["max_atoms"])
             if train_params["test_value_norm"]:
                 Y_cold = df_cold.value
             else:
@@ -73,7 +73,7 @@ def siba_trainer(train_params, model_params):
             df = pd.read_csv("data/" + train_params["cell_line"] + "/" + "5_fold_cv_split/" + "fold_%s/train_%s.csv" %(i+1,i+1),index_col=0).reset_index(drop=True)
             df_cold = pd.read_csv("data/" + train_params["cell_line"] + "/" + "5_fold_cv_split/" + "fold_%s/val_%s.csv" %(i+1,i+1),index_col=0).reset_index(drop=True)
             smiles_cold = list(set(list(df_cold['rdkit.x'])+list(df_cold['rdkit.y'])))
-            X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold, max_degree=5, max_atoms = 60)
+            X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold,  model_params["max_degree"], model_params["max_atoms"])
             if train_params["test_value_norm"]:
                 Y_cold = df_cold.value
             else:

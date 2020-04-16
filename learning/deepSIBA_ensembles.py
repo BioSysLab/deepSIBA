@@ -36,11 +36,11 @@ def siba_val_loader(test_params, model_params,deepsiba):
     if test_params["split"] == "train_test_split":
         df_cold = pd.read_csv("data/" + test_params["cell_line"] + "/" + "train_test_split/" + "test.csv",index_col=0).reset_index(drop=True)
         smiles_cold = list(set(list(df_cold['rdkit.x'])+list(df_cold['rdkit.y'])))
-        X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold, max_degree=5, max_atoms = 60)
+        X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold,  model_params["max_degree"], model_params["max_atoms"])
     elif test_params["split"] == "5_fold_cv_split":
         df_cold = pd.read_csv("data/" + test_params["cell_line"] + "/" + "5_fold_cv_split/" + "fold_%s/val_%s.csv" %(i+1,i+1),index_col=0).reset_index(drop=True)
         smiles_cold = list(set(list(df_cold['rdkit.x'])+list(df_cold['rdkit.y'])))
-        X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold, max_degree=5, max_atoms = 60)
+        X_atoms_cold, X_bonds_cold, X_edges_cold = tensorise_smiles(smiles_cold, model_params["max_degree"], model_params["max_atoms"])
     if not(test_params["test_value_norm"]):
         df_cold.value = df_cold.value/2
 

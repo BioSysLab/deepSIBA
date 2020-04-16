@@ -8,7 +8,7 @@ The NGF and NGF layers folders contain the source code to implement the graph co
 
 The utility folder contains the following functions:
 
-- A Keras training generator
+- A Keras training generator and a predicting generator
 - A function to evaluate the performance of deepSIBA
 - Custom layer and loss function to implement the Gaussian regression layer.
 

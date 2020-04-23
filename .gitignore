@@ -16,3 +16,7 @@
 /preprocessing/data_preprocessing/cmap
 /preprocessing/data_preprocessing/processed_data
 /preprocessing/data_preprocessing/utility
+/article_results/figure_extra_data
+/article_results/table_extra_data
+/article_results/supplementary_figure_data
+/article_results/supplementary_table_data

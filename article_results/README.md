@@ -1,1 +1,1 @@
-### Here are stored some of the results of the study
+### This folder contains the required source code to reproduce all figures and tables of our study.

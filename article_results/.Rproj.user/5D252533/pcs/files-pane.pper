@@ -1,0 +1,9 @@
+{
+    "path" : "~/deepSIBA/article_results",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

@@ -96,8 +96,6 @@ def model_evaluate(y_pred,Y_cold,thresh,df_cold):
         prec = "None"
     # calculate accuracy
     acc = accuracy_score(true_cat,pred_cat)
-    # calculate recall
-    rec=sklearn.metrics.recall_score(true_cat,pred_cat)
-    result =pd.DataFrame({'cor' : cor[0,1], 'mse_all' : mse_all, 'mse_similars' : mse_sims,'precision': prec, 'accuracy': acc, 'recall' : rec,
+    result =pd.DataFrame({'cor' : cor[0,1], 'mse_all' : mse_all, 'mse_similars' : mse_sims,'precision': prec, 'accuracy': acc,
                          'positives' : pos}, index=[0])
     return(result)

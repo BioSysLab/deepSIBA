@@ -40,4 +40,4 @@ $ git clone https://github.com/BioSysLab/deepSIBA.git
 
 ## Data
 For deep learning applications follow the instructions in the data and screening subfolders of the learning folder.
-For the general Gene Expression data used and data used for the figures of the article, see instructions in every folder of the article_results section.
+For the general Gene Expression data used and data used for the figures of the article, see instructions in every folder of the article_results and preprocessing sections.

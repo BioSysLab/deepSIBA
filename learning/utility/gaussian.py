@@ -45,11 +45,11 @@ class GaussianLayer(Layer):
         super(GaussianLayer, self).__init__(**kwargs)
     def build(self, input_shape):
         self.kernel_1 = self.add_weight(name='kernel_1', 
-                                      shape=(128, self.output_dim),
+                                      shape=(int(input_shape[-1]), self.output_dim),
                                       initializer=glorot_normal(),
                                       trainable=True)
         self.kernel_2 = self.add_weight(name='kernel_2', 
-                                      shape=(128, self.output_dim),
+                                      shape=(int(input_shape[-1]), self.output_dim),
                                       initializer=glorot_normal(),
                                       trainable=True)
         self.bias_1 = self.add_weight(name='bias_1',
@@ -75,11 +75,11 @@ class ConGaussianLayer(Layer):
         super(ConGaussianLayer, self).__init__(**kwargs)
     def build(self, input_shape):
         self.kernel_1 = self.add_weight(name='kernel_1', 
-                                      shape=(128, self.output_dim),
+                                      shape=(int(input_shape[-1]), self.output_dim),
                                       initializer=glorot_normal(),
                                       trainable=True)
         self.kernel_2 = self.add_weight(name='kernel_2', 
-                                      shape=(128, self.output_dim),
+                                      shape=(int(input_shape[-1]), self.output_dim),
                                       initializer=glorot_normal(),
                                       trainable=True)
         self.bias_1 = self.add_weight(name='bias_1',

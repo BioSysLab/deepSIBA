@@ -34,10 +34,8 @@ from utility.evaluator import r_square, get_cindex, pearson_r, mse_sliced, model
 from utility.Generator import train_generator,preds_generator
 from dot_siamese_model import enc_graph, siamese_model
 from pathlib import Path
-from custom_layers.model_creator import multistage_autoenc
-from custom_layers.model_creator import stage_creator, encode_smiles, add_new_layer
 
-def siba_trainer(train_params, model_params, encoder_params):
+def siba_trainer(train_params, model_params):
     get_all = []
     #print("HI")
     if train_params["split"] == "train_test_split":
@@ -89,7 +87,7 @@ def siba_trainer(train_params, model_params, encoder_params):
         cold_preds_sigmas = []
         n = train_params["nmodel_start"]
         while n < train_params["N_ensemble"]:
-            deepsiba = siamese_model(model_params,encoder_params)
+            deepsiba = siamese_model(model_params)
             rlr = ReduceLROnPlateau(monitor='loss', factor=0.5,patience=3, min_lr=0.00001, verbose=1, min_delta=1e-5)
             term=keras.callbacks.TerminateOnNaN()
             bs = train_params["batch_size"]

@@ -31,25 +31,28 @@ from math import ceil
 from sklearn.metrics import precision_score, accuracy_score, mean_squared_error
 from utility.gaussian import GaussianLayer, custom_loss, ConGaussianLayer
 from utility.evaluator import r_square, get_cindex, pearson_r, mse_sliced, model_evaluate
-from custom_layers.model_creator import multistage_autoenc
-from custom_layers.model_creator import stage_creator, encode_smiles, add_new_layer
 
 #Define siamese encoder
-def enc_graph(params,encoder_params):
+def enc_graph(params):
     ### encode smiles
     atoms0 = Input(name='atom_inputs', shape=(params["max_atoms"], params["num_atom_features"]),dtype = 'float32')
     bonds = Input(name='bond_inputs', shape=(params["max_atoms"], params["max_degree"], params["num_bond_features"]),dtype = 'float32')
     edges = Input(name='edge_inputs', shape=(params["max_atoms"], params["max_degree"]), dtype='int32')
 
-    [model_enc_1, model_dec_pre_act_1, model_dec_after_act_1] = stage_creator(encoder_params,1,conv = True)
-    [model_enc_2, model_dec_pre_act_2, model_dec_after_act_2] = stage_creator(encoder_params,2,conv = True)
-    [model_enc_3, model_dec_pre_act_3, model_dec_after_act_3] = stage_creator(encoder_params,3,conv = True)
+    g1 = NeuralGraphHidden(params["graph_conv_width"][0] , activ = None, bias = True , init = 'glorot_normal')([atoms0,bonds,edges])
+    g1 = BatchNormalization(momentum=0.6)(g1)
+    g1 = Activation('relu')(g1)
 
-    graph_conv_1 = model_enc_1([atoms0,bonds,edges])
-    graph_conv_2 = model_enc_2([graph_conv_1,bonds,edges])
-    graph_conv_3 = model_enc_3([graph_conv_2,bonds,edges])
+    g2 = NeuralGraphHidden(params["graph_conv_width"][1] , activ = None, bias = True , init = 'glorot_normal')([g1,bonds,edges])
+    g2 = BatchNormalization(momentum=0.6)(g2)
+    g2 = Activation('relu')(g2)
 
-    g4=keras.layers.Conv1D(params["conv1d_filters"], params["conv1d_size"], activation=None, use_bias=False, kernel_initializer='glorot_uniform')(graph_conv_3)
+    g3 = NeuralGraphHidden(params["graph_conv_width"][2] , activ = None, bias = True , init = 'glorot_normal')([g2,bonds,edges])
+    g3 = BatchNormalization(momentum=0.6)(g3)
+    g3 = Activation('relu')(g3)
+
+
+    g4=keras.layers.Conv1D(params["conv1d_filters"], params["conv1d_size"], activation=None, use_bias=False, kernel_initializer='glorot_uniform')(g3)
     g4= BatchNormalization(momentum=0.6)(g4)
     g4 = Activation('relu')(g4)
     g4=keras.layers.Dropout(params["dropout_encoder"])(g4)
@@ -61,7 +64,7 @@ def enc_graph(params,encoder_params):
     return graph_encoder
 
 #Define operations of distance module after the siamese encoders
-def siamese_model(params,encoder_params):
+def siamese_model(params):
     atoms0_1 = Input(name='atom_inputs_1', shape=(params["max_atoms"], params["num_atom_features"]),dtype = 'float32')
     bonds_1 = Input(name='bond_inputs_1', shape=(params["max_atoms"], params["max_degree"], params["num_bond_features"]),dtype = 'float32')
     edges_1 = Input(name='edge_inputs_1', shape=(params["max_atoms"], params["max_degree"]), dtype='int32')
@@ -70,7 +73,7 @@ def siamese_model(params,encoder_params):
     bonds_2 = Input(name='bond_inputs_2', shape=(params["max_atoms"], params["max_degree"], params["num_bond_features"]),dtype = 'float32')
     edges_2 = Input(name='edge_inputs_2', shape=(params["max_atoms"], params["max_degree"]), dtype='int32')
 
-    graph_encoder = enc_graph(params,encoder_params)
+    graph_encoder = enc_graph(params)
 
     encoded_1 = graph_encoder([atoms0_1,bonds_1,edges_1])
     encoded_2 = graph_encoder([atoms0_2,bonds_2,edges_2])
@@ -111,9 +114,9 @@ def siamese_model(params,encoder_params):
 
     #Final Gaussian Layer to predict mean distance and standard deaviation of distance
     if params["ConGauss"]:
-        mu, sigma = ConGaussianLayer(1, name='main_output')(fc3)
+        mu, sigma = ConGaussianLayer(1, name='main_output')(conv1)
     else:
-        mu, sigma = GaussianLayer(1, name='main_output')(fc3) #default used most of the times
+        mu, sigma = GaussianLayer(1, name='main_output')(conv1) #default used most of the times
     siamese_net = Model(inputs = [atoms0_1, bonds_1, edges_1, atoms0_2, bonds_2, edges_2], outputs = mu)
 
     thresh = params["dist_thresh"] #threshold to consider similars

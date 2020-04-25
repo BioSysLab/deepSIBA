@@ -29,7 +29,7 @@ from NGF_layers.features import one_of_k_encoding, one_of_k_encoding_unk, atom_f
 from NGF_layers.graph_layers import temporal_padding, neighbour_lookup, NeuralGraphHidden, NeuralGraphOutput
 from math import ceil
 from sklearn.metrics import precision_score, accuracy_score, mean_squared_error
-from utility.gaussian import GaussianLayer, custom_loss
+from utility.gaussian import GaussianLayer, custom_loss, ConGaussianLayer
 from utility.evaluator import r_square, get_cindex, pearson_r, mse_sliced, model_evaluate
 from utility.Generator import train_generator,preds_generator
 from deepSIBA_model import enc_graph, siamese_model

@@ -82,34 +82,35 @@ def siamese_model(params,encoder_params):
     conv1 = BatchNormalization(momentum=0.6)(conv1)
     conv1 = Activation('relu')(conv1)
     conv1 = keras.layers.Dropout(params["dropout_dist"])(conv1)
+    conv1=keras.layers.Flatten()(conv1) #this line must be removed if the following convs are un-commeneted
 
-    conv2 = keras.layers.Conv1D(params["conv1d_filters_dist"][1], params["conv1d_size_dist"][1], activation=None, use_bias=False, kernel_initializer='glorot_uniform')(conv1)
-    conv2 = BatchNormalization(momentum=0.6)(conv2)
-    conv2 = Activation('relu')(conv2)
-    conv2 = keras.layers.Dropout(params["dropout_dist"])(conv2)
+    #conv2 = keras.layers.Conv1D(params["conv1d_filters_dist"][1], params["conv1d_size_dist"][1], activation=None, use_bias=False, kernel_initializer='glorot_uniform')(conv1)
+    #conv2 = BatchNormalization(momentum=0.6)(conv2)
+    #conv2 = Activation('relu')(conv2)
+    #conv2 = keras.layers.Dropout(params["dropout_dist"])(conv2)
 
-    conv2_pool = keras.layers.MaxPooling1D(pool_size= params["pool_size"], strides=None, padding='valid', data_format='channels_last')(conv2)
-    conv2_pool = BatchNormalization(momentum=0.6)(conv2_pool)
-    conv2_pool = keras.layers.Flatten()(conv2_pool)
+    #conv2_pool = keras.layers.MaxPooling1D(pool_size= params["pool_size"], strides=None, padding='valid', data_format='channels_last')(conv2)
+    #conv2_pool = BatchNormalization(momentum=0.6)(conv2_pool)
+    #conv2_pool = keras.layers.Flatten()(conv2_pool)
 
-    fc1 = keras.layers.Dense(params["dense_size"][0],activation = None,kernel_regularizer=regularizers.l2(params["l2reg"]), kernel_initializer='glorot_normal')(conv2_pool)
-    fc1 = BatchNormalization(momentum=0.6)(fc1)
-    fc1 = Activation('relu')(fc1)
-    fc1 = keras.layers.Dropout(params["dropout_dist"])(fc1)
+    #fc1 = keras.layers.Dense(params["dense_size"][0],activation = None,kernel_regularizer=regularizers.l2(params["l2reg"]), kernel_initializer='glorot_normal')(conv2_pool)
+    #fc1 = BatchNormalization(momentum=0.6)(fc1)
+    #fc1 = Activation('relu')(fc1)
+    #fc1 = keras.layers.Dropout(params["dropout_dist"])(fc1)
 
 
-    fc2 = keras.layers.Dense(params["dense_size"][1],activation = None,kernel_regularizer=regularizers.l2(params["l2reg"]), kernel_initializer='glorot_normal')(fc1)
-    fc2 = BatchNormalization(momentum=0.6)(fc2)
-    fc2 = Activation('relu')(fc2)
-    fc2 = keras.layers.Dropout(params["dropout_dist"])(fc2)
+    #fc2 = keras.layers.Dense(params["dense_size"][1],activation = None,kernel_regularizer=regularizers.l2(params["l2reg"]), kernel_initializer='glorot_normal')(fc1)
+    #fc2 = BatchNormalization(momentum=0.6)(fc2)
+    #fc2 = Activation('relu')(fc2)
+    #fc2 = keras.layers.Dropout(params["dropout_dist"])(fc2)
 
-    fc3 = keras.layers.Dense(params["dense_size"][2],activation = None,kernel_regularizer=regularizers.l2(params["l2reg"]), kernel_initializer='glorot_normal')(fc2)
-    fc3 = BatchNormalization(momentum=0.6)(fc3)
-    fc3 = Activation('relu')(fc3)
-    fc3 = keras.layers.Dropout(params["dropout_dist"])(fc3)
+    #fc3 = keras.layers.Dense(params["dense_size"][2],activation = None,kernel_regularizer=regularizers.l2(params["l2reg"]), kernel_initializer='glorot_normal')(fc2)
+    #fc3 = BatchNormalization(momentum=0.6)(fc3)
+    #fc3 = Activation('relu')(fc3)
+    #fc3 = keras.layers.Dropout(params["dropout_dist"])(fc3)
 
     #Final Gaussian Layer to predict mean distance and standard deaviation of distance
-    mu, sigma = GaussianLayer(1, name='main_output')(fc3)
+    mu, sigma = GaussianLayer(1, name='main_output')(conv1)
     siamese_net = Model(inputs = [atoms0_1, bonds_1, edges_1, atoms0_2, bonds_2, edges_2], outputs = mu)
 
     thresh = params["dist_thresh"] #threshold to consider similars

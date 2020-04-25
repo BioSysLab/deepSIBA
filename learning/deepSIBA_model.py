@@ -113,7 +113,10 @@ def siamese_model(params):
     fc3 = keras.layers.Dropout(params["dropout_dist"])(fc3)
 
     #Final Gaussian Layer to predict mean distance and standard deaviation of distance
-    mu, sigma = GaussianLayer(1, name='main_output')(fc3)
+    if params["ConGauss"]:
+        mu, sigma = ConGaussianLayer(1, name='main_output')(fc3)
+    else:
+        mu, sigma = GaussianLayer(1, name='main_output')(fc3) #default used most of the times
     siamese_net = Model(inputs = [atoms0_1, bonds_1, edges_1, atoms0_2, bonds_2, edges_2], outputs = mu)
 
     thresh = params["dist_thresh"] #threshold to consider similars

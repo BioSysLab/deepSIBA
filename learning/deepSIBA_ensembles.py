@@ -48,23 +48,27 @@ def siba_val_loader(test_params, model_params,deepsiba):
     cold_preds_sigmas = []
     n=int(0)
     while n < test_params["N_ensemble"]:
-        if test_params["split"] == "train_test_split":
-            deepsiba.load_weights("trained_models/"+test_params["cell_line"]+ "/" + test_params["split"]+"/models/" +test_params["name_pattern"] +"_%s.h5"%n)
-        elif test_params["split"] == "5_fold_cv_split":
-            deepsiba.load_weights("trained_models/" + test_params["cell_line"]+ "/"+test_params["split"]+"/fold_%s/models/"%(i+1) +test_params["name_pattern"] +"_%s.h5"%n)
-        gaussian = keras.Model(deepsiba.inputs, deepsiba.get_layer('main_output').output)
-        pr_steps=ceil(len(df_cold)/test_params["predict_batch_size"])
-        PredGen=preds_generator(test_params["predict_batch_size"],df_cold,smiles_cold,X_atoms_cold, X_bonds_cold, X_edges_cold,gaussian)
-        y_pred1=[]
-        y_pred2=[]
-        for g in range(pr_steps):
-            cold_pred=list(next(PredGen))
-            y_pred1=y_pred1+list(cold_pred[0])
-            y_pred2=y_pred2+list(cold_pred[1])
-        y_pred1=np.array(y_pred1)
-        y_pred2=np.array(y_pred2)
-        cold_preds_mus.append(y_pred1)
-        cold_preds_sigmas.append(y_pred2)
+        if test_params["to_load"]==1:
+            if test_params["split"] == "train_test_split":
+                deepsiba.load_weights("trained_models/"+test_params["cell_line"]+ "/" + test_params["split"]+"/models/" +test_params["name_pattern"] +"_%s.h5"%n)
+            elif test_params["split"] == "5_fold_cv_split":
+                deepsiba.load_weights("trained_models/" + test_params["cell_line"]+ "/"+test_params["split"]+"/fold_%s/models/"%(i+1) +test_params["name_pattern"] +"_%s.h5"%n)
+            gaussian = keras.Model(deepsiba.inputs, deepsiba.get_layer('main_output').output)
+            pr_steps=ceil(len(df_cold)/test_params["predict_batch_size"])
+            PredGen=preds_generator(test_params["predict_batch_size"],df_cold,smiles_cold,X_atoms_cold, X_bonds_cold, X_edges_cold,gaussian)
+            y_pred1=[]
+            y_pred2=[]
+            for g in range(pr_steps):
+                cold_pred=list(next(PredGen))
+                y_pred1=y_pred1+list(cold_pred[0])
+                y_pred2=y_pred2+list(cold_pred[1])
+            y_pred1=np.array(y_pred1)
+            y_pred2=np.array(y_pred2)
+            cold_preds_mus.append(y_pred1)
+            cold_preds_sigmas.append(y_pred2)
+        else:
+            cold_preds_mus.append(np.load(test_params["mu_path"]+test_params["prediction_pattern"][0]+"%s.npy"%n))
+            cold_preds_sigmas.append(np.load(test_params["sigma_path"]+test_params["prediction_pattern"][1]+"%s.npy"%n))
         n = n + 1
     mu_star=np.mean(cold_preds_mus,axis=0)
     sigma_star = np.sqrt(np.mean(cold_preds_sigmas + np.square(cold_preds_mus), axis = 0) - np.square(mu_star))

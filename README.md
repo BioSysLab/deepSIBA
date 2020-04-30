@@ -15,7 +15,7 @@ Github repository of the study:
 
 
 ## Abstract
-![figure1_fl_02](https://user-images.githubusercontent.com/48244638/80740035-212c7f00-8b20-11ea-9d97-300758595403.png)
+![graph_abs_fl_01](https://user-images.githubusercontent.com/48244638/80760167-251cc900-8b41-11ea-9922-b4a1887a181d.png)
 Predicting whether a chemical structure shares a desired biological effect can have a significant impact for in-silico compound screening in early drug discovery.  In this study, we developed a deep learning model where compound structures are represented as graphs and then linked to their biological footprint. To make this complex problem computationally tractable, compound differences were mapped to biological effect alterations using Siamese Graph Convolutional Neural Networks. The proposed model was able to learn new representations from chemical structures and identify structurally dissimilar compounds that affect similar biological processes with high precision. Additionally, by utilizing deep ensembles to estimate uncertainty, we were able to provide more reliable and accurate predictions for chemical structures that are very different from the ones used to the train the models. Finally, we present a novel inference approach, where the trained models are used to provide an estimate of a compound’s effect on signaling pathways, using only its chemical structure.
 
 

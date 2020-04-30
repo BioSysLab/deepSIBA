@@ -1,3 +1,6 @@
+# DeepSIBA Approach
+![figure1_fl_02](https://user-images.githubusercontent.com/48244638/80740035-212c7f00-8b20-11ea-9d97-300758595403.png)
+
 # Learning directory overview
 
 This directory contains the required data and source code to implement the machine learning part of deepSIBA. 

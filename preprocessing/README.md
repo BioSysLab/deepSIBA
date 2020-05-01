@@ -31,20 +31,20 @@ CMap : Glossary https://clue.io/connectopedia/glossary
 
 ### R packages required
 
-- tidyverse
-- doFuture
-- GeneExpressionSignature
-- cmapR
-- rhdf5
-- AnnotationDbi
-- org.Hs.eg.db
-- fgsea
-- gage
-- EGSEAdata
-- topGO
-- GO.db
-- CARNIVAL
-- viper
+- [tidyverse](https://www.tidyverse.org/)
+- [doFuture](https://github.com/HenrikBengtsson/doFuture)
+- [GeneExpressionSignature](https://www.bioconductor.org/packages/release/bioc/html/GeneExpressionSignature.html)
+- [cmapR](https://github.com/cmap/cmapR)
+- [rhdf5](https://www.bioconductor.org/packages/release/bioc/html/rhdf5.html)
+- [AnnotationDbi](https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html)
+- [org.Hs.eg.db](http://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html)
+- [fgsea](https://bioconductor.org/packages/release/bioc/html/fgsea.html)
+- [gage](https://bioconductor.org/packages/release/bioc/html/gage.html)
+- [EGSEAdata](http://bioconductor.org/packages/release/data/experiment/html/EGSEAdata.html)
+- [topGO](https://bioconductor.org/packages/release/bioc/html/topGO.html)
+- [GO.db](http://bioconductor.org/packages/release/data/annotation/html/GO.db.html)
+- [CARNIVAL](https://github.com/saezlab/CARNIVAL)
+- [viper](https://www.bioconductor.org/packages/release/bioc/html/viper.html)
 
 
 

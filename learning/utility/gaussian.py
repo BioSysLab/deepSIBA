@@ -1,5 +1,4 @@
 from __future__ import division, print_function
-from comet_ml import Experiment
 import numpy as np
 from numpy import inf, ndarray
 import pandas as pd

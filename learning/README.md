@@ -28,8 +28,18 @@ The input required for each function is described thoroughly in the deepSIBA_exa
 
 # Python dependencies
 
-- Tensorflow 1.12
+- Tensorflow 1.12-1.15
 - Keras
+- theano
 - Numpy
 - Sklearn
 - Rdkit
+- Pandas
+- multiprocessing
+- random
+- tempfile
+- math
+- pathlib
+- pickle
+- functools
+- copy

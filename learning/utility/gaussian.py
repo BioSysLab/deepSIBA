@@ -28,9 +28,6 @@ from multiprocessing import cpu_count, Pool
 from keras.utils.generic_utils import Progbar
 from copy import deepcopy
 from math import ceil
-from sklearn.metrics import precision_score
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import mean_squared_error
 
 #Define custom loss and gaussian layer
 def custom_loss(sigma):

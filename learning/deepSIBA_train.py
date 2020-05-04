@@ -28,7 +28,7 @@ import NGF_layers.graph_layers
 from NGF_layers.features import one_of_k_encoding, one_of_k_encoding_unk, atom_features, bond_features, num_atom_features, num_bond_features, padaxis, tensorise_smiles, concat_mol_tensors
 from NGF_layers.graph_layers import temporal_padding, neighbour_lookup, NeuralGraphHidden, NeuralGraphOutput
 from math import ceil
-from sklearn.metrics import precision_score, accuracy_score, mean_squared_error
+from sklearn.metrics import mean_squared_error
 from utility.gaussian import GaussianLayer, custom_loss, ConGaussianLayer
 from utility.evaluator import r_square, get_cindex, pearson_r, mse_sliced, model_evaluate
 from utility.Generator import train_generator,preds_generator
@@ -141,3 +141,4 @@ def siba_trainer(train_params, model_params):
         df_cold['cv'] = cv_star
         df_cold.to_csv(train_params["output_dir"] + "/" + "fold_%s/ensemble_preds_dataframe.csv"%i)
     return(get_all)
+

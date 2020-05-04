@@ -28,8 +28,6 @@ from multiprocessing import cpu_count, Pool
 from keras.utils.generic_utils import Progbar
 from copy import deepcopy
 from math import ceil
-from sklearn.metrics import precision_score
-from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import mean_squared_error
 
@@ -91,15 +89,14 @@ def model_evaluate(y_pred,Y_cold,thresh,df_cold):
     true_cat = true <= thresh
     pred_cat = pred <= thresh
     pos = np.sum(pred_cat)
+    # calculate accuracy and fpr and precision
+    tn, fp, fn, tp=confusion_matrix(true_cat,pred_cat).ravel()
     if (len(pred[np.where(pred<=thresh)])>0):
-        prec = precision_score(true_cat,pred_cat)
+        prec = tp/(fp+tp)
     else: 
         prec = "None"
-    # calculate accuracy and fpr
-    tn, fp, fn, tp=confusion_matrix(true_cat,pred_cat).ravel()
     fpr=fp/(fp+tn)
-    prec2=tp/(fp+tp)
-    acc = accuracy_score(true_cat,pred_cat)
+    acc = (tp+tn)/(tp+tn+fp+fn)
     result =pd.DataFrame({'cor' : cor[0,1], 'mse_all' : mse_all, 'mse_similars' : mse_sims,'precision': prec, 'accuracy': acc,
-                         'FPR':fpr,'positives' : pos,'prec2':prec2}, index=[0])
+                         'FPR':fpr,'positives' : pos}, index=[0])
     return(result)

@@ -90,7 +90,7 @@ def model_evaluate(y_pred,Y_cold,thresh,df_cold):
     pred_cat = pred <= thresh
     pos = np.sum(pred_cat)
     # calculate accuracy and fpr and precision
-    tn, fp, fn, tp=confusion_matrix(true_cat,pred_cat).ravel()
+    tn, fp, fn, tp=confusion_matrix(true_cat,pred_cat).ravel() #see sklearn.metrics.confusion_matrix documentation
     if (len(pred[np.where(pred<=thresh)])>0):
         prec = tp/(fp+tp)
     else: 

@@ -30,7 +30,9 @@ from copy import deepcopy
 from math import ceil
 from sklearn.metrics import precision_score
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 from sklearn.metrics import mean_squared_error
+
 
 #Define custom metrics for evaluation
 def r_square(y_true, y_pred):
@@ -93,8 +95,11 @@ def model_evaluate(y_pred,Y_cold,thresh,df_cold):
         prec = precision_score(true_cat,pred_cat)
     else: 
         prec = "None"
-    # calculate accuracy
+    # calculate accuracy and fpr
+    tn, fp, fn, tp=confusion_matrix(true_cat,pred_cat).ravel()
+    fpr=fp/(fp+tn)
+    prec2=tp/(fp+tp)
     acc = accuracy_score(true_cat,pred_cat)
     result =pd.DataFrame({'cor' : cor[0,1], 'mse_all' : mse_all, 'mse_similars' : mse_sims,'precision': prec, 'accuracy': acc,
-                         'positives' : pos}, index=[0])
+                         'FPR':fpr,'positives' : pos,'prec2':prec2}, index=[0])
     return(result)

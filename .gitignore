@@ -3,6 +3,7 @@
 /learning/data/pc3
 /learning/data/mcf7
 /learning/data/vcap
+/learning/data/merged_genes
 /learning/data/merged
 /learning/data/merged_go
 /learning/.ipynb_checkpoints
@@ -11,6 +12,7 @@
 /learning/trained_models/pc3
 /learning/trained_models/vcap
 /learning/trained_models/merged
+/learning/trained_models/merged_genes
 /learning/trained_models/merged_go
 /learning/screening/chembl
 /learning/screening/cmap
@@ -22,3 +24,6 @@
 /article_results/table_extra_data
 /article_results/supplementary_figure_data
 /article_results/supplementary_table_data
+/signaling_pathway_inference/data
+/signaling_pathway_inference/trained_models
+/signaling_pathway_inference/pathway_inference_data

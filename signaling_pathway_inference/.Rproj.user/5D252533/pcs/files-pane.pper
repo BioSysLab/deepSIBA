@@ -1,0 +1,9 @@
+{
+    "path" : "~/deepSIBA/signaling_pathway_inference",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588868407386.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "642479515",
+    "id" : "97764E3A",
+    "lastKnownWriteTime" : 1588873462,
+    "last_content_update" : 1588873462591,
+    "path" : "~/deepSIBA/signaling_pathway_inference/PI_step_2.R",
+    "project_path" : "PI_step_2.R",
+    "properties" : {
+        "cursorPosition" : "121,39",
+        "scrollLine" : "108",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

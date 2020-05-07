@@ -1,4 +1,3 @@
-# Still under construction!
 # DeepSIBA: Chemical Structure-based Inference of Biological Alterations
 ### Christos Fotis<sup>1(+)</sup>, Nikolaos Meimetis<sup>1+</sup>, Antonios Sardis<sup>1</sup>, Leonidas G.Alexopoulos<sup>1,2(*)</sup>
  #### 1. BioSys Lab, National Technical University of Athens, Athens, Greece.

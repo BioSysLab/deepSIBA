@@ -2,4 +2,4 @@
 
 
 
-![figure 3_02_fl](C:\Users\user\Documents\deepSIBA\article_results\main_figures\figure_3\figure 3_02_fl.png)
+![figure 3_02_fl](figure 3_02_fl.png)

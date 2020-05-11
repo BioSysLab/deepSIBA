@@ -13,7 +13,7 @@ go_path_analysis <- function(sig_ids, cmap_path_to_gctx, landmark_df, goterms) {
   profiles <- get_cmap_signatures(cmap_path_to_gctx = cmap_path_to_gctx,sig_ids = sig_ids,landmark = T,landmark_df = landmark_df)
   print("profiles loaded")
   ### change to entrez ids
-  rownames(profiles) <- landmark$`Entrez ID`
+  rownames(profiles) <- landmark_df$`Entrez ID`
   rownames(profiles) <- as.character(rownames(profiles))
   
   print("running fgsea")

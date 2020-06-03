@@ -6,6 +6,9 @@
 /learning/data/merged_genes
 /learning/data/merged
 /learning/data/merged_go
+/learning/data/rem_random_a375.zip
+/learning/data/rem_random_pc3.zip
+/learning/data/rem_random_vcap.zip
 /learning/trained_models/a375
 /learning/trained_models/mcf7
 /learning/trained_models/pc3

@@ -29,3 +29,4 @@
 /signaling_pathway_inference/data
 /signaling_pathway_inference/trained_models
 /signaling_pathway_inference/pathway_inference_data
+/learning/deepSIBA_examples_r.ipynb

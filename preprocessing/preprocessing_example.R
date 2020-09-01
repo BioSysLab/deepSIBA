@@ -66,7 +66,7 @@ ecfp_sims <- read.csv("data_preprocessing/utility/sims/a375q1similarities.csv")
 allq1smiles <- read.csv("data_preprocessing/utility/smiles/alla375q1smiles.csv")
 # input distance dataframe
 dataframe <- a375_dist
-dir <- "../learning/data/a375/5_fold_cv_split"
+dir <- "output_dir"
 # set no_folds to 5 for 5 fold cv split
 no_folds <- 5
 # n_drugs number of drugs in the test/val set

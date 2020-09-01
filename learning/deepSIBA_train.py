@@ -88,6 +88,9 @@ def siba_trainer(train_params, model_params):
         n = train_params["nmodel_start"]
         while n < train_params["N_ensemble"]:
             deepsiba = siamese_model(model_params)
+            if train_params["Pre_training"]:
+                weight_path=train_params["Pre_trained_cell_dir"]+"/"+train_params["pattern_to_load"]+train_params["model_id_to_load"]+".h5"
+                deepsiba.load_weights(weight_path)
             rlr = ReduceLROnPlateau(monitor='loss', factor=0.5,patience=3, min_lr=0.00001, verbose=1, min_delta=1e-5)
             term=keras.callbacks.TerminateOnNaN()
             bs = train_params["batch_size"]

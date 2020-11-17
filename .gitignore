@@ -12,6 +12,10 @@
 /learning/data/merged_genes
 /learning/data/merged
 /learning/data/merged_go
+/learning/data/a375_augm
+/learning/data/pc3_augm
+/learning/data/mcf7_augm
+/learning/data/vcap_augm
 /learning/data/rem_random_a375.zip
 /learning/data/rem_random_pc3.zip
 /learning/data/rem_random_vcap.zip

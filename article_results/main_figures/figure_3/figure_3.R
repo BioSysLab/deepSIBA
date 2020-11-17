@@ -1,5 +1,9 @@
 library(tidyverse)
 library(cancerTiming)
+library(viridis)
+library(reshape2)
+library(doFuture)
+library(ggpubr)
 
 drug_sigs_per_line_dups <- function(cell_line,sig_info,sig_metrics) {
   
@@ -444,6 +448,26 @@ legend("topright",
        inset = c(0.01, 0.01))
 dev.off()
 
+q1_mcf7_distances <- as.data.frame(q1_mcf7_distances)
+q1_mcf7_distances$quality <- "Quality 1"
+q2_mcf7_distances <- as.data.frame(q2_mcf7_distances)
+q2_mcf7_distances$quality <- "Quality 2"
+
+df_dot <- bind_rows(q1_mcf7_distances,q2_mcf7_distances)
+df_dot$quality <- as.factor(df_dot$quality)
+dotplot <- ggplot(df_dot, aes(x=quality, y=V1, fill = quality)) + 
+  geom_violin()+geom_boxplot(width=0.1)+
+  scale_fill_discrete(name="Duplicate quality",
+                      labels=c("Quality 1","Quality 2"))+
+  ylim(0,max(df_dot$V1))+
+  xlab("")+ylab("Gene-level distance")+ 
+    theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),
+      panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+      panel.background = element_blank(),text = element_text(size = 15),legend.position = "none")
+png(file="main_figures/figure_3/figure_3_a_noleg.png",width=7,height=6,units = "cm",res=600)
+dotplot
+dev.off()
+
 library(doFuture)
 
 registerDoFuture()
@@ -541,6 +565,20 @@ legend("topleft",
        horiz = T )
 dev.off()
 
+
+q1plot <- ggplot(allq1,aes(x=gene_vcap,y = gene_mcf7)) +
+  geom_point(size = 0.1) + xlab("VCAP gene-level distance") + ylab("MCF7 gene-level distance") +
+  geom_vline(aes(xintercept=0.19),linetype="dotdash",col = "red",lwd = 0.75)+
+  geom_hline(aes(yintercept=0.2),linetype="dotdash",col = "red",lwd = 0.75)+
+  annotate(geom = 'text', label = "Pearson's r = 0.469", x = 0.02, y = 0.8, hjust = 0, vjust = 1,size = 8)+
+  theme(
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(),text = element_text(size = 15),legend.position = "none")
+q1plot
+
+png(file="main_figures/figure_3/figure_3_b_noleg.png",width=14,height=12,units = "cm",res=600)
+q1plot
+dev.off()
 png(file="result_fig_1b.png",width=7,height=6,units = "in",res=300)
 plot(allq1$gene_vcap,allq1$gene_mcf7,pch=20,xlim = c(0,0.8),cex = 0.5,ylim = c(0,0.8),xlab="VCAP Gene-level distance",ylab="MCF7 Gene-level distance",xaxs="i",yaxs="i")
 title("B", adj = 0)

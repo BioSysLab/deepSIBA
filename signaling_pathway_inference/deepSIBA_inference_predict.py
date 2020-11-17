@@ -61,7 +61,7 @@ def siba_training_neighbors(params,model_params):
             elif params["split"] == "custom":
                 siamese_net.load_weights(params["model_path"] + params["name_pattern"] +"_%s.h5"%n)
             gaussian = keras.Model(siamese_net.inputs, siamese_net.get_layer('main_output').output)
-            cold_pred = gaussian.predict([X_atoms_cold_1,X_bonds_cold_1,X_edges_cold_1,X_atoms_cold_2, X_bonds_cold_2, X_edges_cold_2],batch_size=128)
+            cold_pred = gaussian.predict([X_atoms_cold_1,X_bonds_cold_1,X_edges_cold_1,X_atoms_cold_2, X_bonds_cold_2, X_edges_cold_2],batch_size=2048)
             cold_preds_mus.append(cold_pred[0])
             cold_preds_sigmas.append(cold_pred[1])
         print('Finished predicting against the training set')

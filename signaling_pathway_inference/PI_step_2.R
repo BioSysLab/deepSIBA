@@ -1,22 +1,23 @@
 library(tidyverse)
+library(gtools)
 
 # extract a named vector of all terms
 # read all signature data frame
 # the file below can be found at deepSIBA drive, data preprocessing
-all <- readRDS("C:/Users/user/Documents/deepSIBA/preprocessing/data_preprocessing/processed_data/initial_signatures_with_mycranks.rds")
+all <- readRDS("../preprocessing/data_preprocessing/processed_data/initial_signatures_with_mycranks.rds")
 #read pert id to rdkit mapping
-pert <- readRDS("C:/Users/user/Documents/deepSIBA/preprocessing/data_preprocessing/utility/pert_id_to_rdkit.rds")
+pert <- readRDS("../preprocessing/data_preprocessing/utility/pert_id_to_rdkit.rds")
 all <- left_join(all,pert)
 all <- all %>% filter(!is.na(rdkit))
 
 # read pathway scores
-path_pa <- "pathway_inference_data/nes_compounds_all.rds"
+path_pa <- "data/nes_compounds_all.rds"
 # path to the neighbor file from step 1
-neighbor_file <- "C:/Users/user/Documents/deepSIBA/results/inference_test_jan_0/results_trainingset.csv"
+neighbor_file <- "cannabis_pathways_npc/inference_test_jan_0/results_trainingset.csv"
 
 # read precalculated p value distributions for up and downregulated pathways
-dist_pb <- readRDS("pathway_inference_data/distributions_pb.rds")
-dist_pt <- readRDS("pathway_inference_data/distributions_pt.rds")
+dist_pb <- readRDS("data/distributions_pb.rds")
+dist_pt <- readRDS("data/distributions_pt.rds")
 
 get_com_sigs_2 <- function(pa,tb_pa=10, sig_ids, majority_thresh = 0.5) {
   
@@ -116,12 +117,13 @@ infer_pathways <- function(cell_line, path_pa, neighbor_file, all, n_min_neighbo
   return(results)
 }
 
-test <- infer_pathways(cell_line = "A375",path_pa = path_pa,neighbor_file = neighbor_file,all = all,n_min_neighbors = 5,
+test <- infer_pathways(cell_line = "NPC",path_pa = path_pa,neighbor_file = neighbor_file,all = all,n_min_neighbors = 5,
                        tb_pa = 10,dist_pb = dist_pb,dist_pt = dist_pt,fr_thresh = 0.65,p_val_thresh = 0.01,n_trials = 5000)
 
 
-files <- list.files("C:/Users/user/Documents/deepSIBA/results/cannabis_pathways_a375/",all.files = T,recursive = T,full.names = T)
-cell <- "A375"
+files <- list.files("cannabis_pathways_npc/",all.files = T,recursive = T,full.names = T)
+files <- mixedsort(files)
+cell <- "NPC"
 names <- c("CBC","CBCA","CBCV","CBCVA","CBL","CBLA","CBD","CBDM","CBDA","CBD-C1","CBD-C4","CBDV","CBDVA","CBDP","6α-OH CBD",
            "CBEA-B","CBE","CBG","CBGM","CBGA","CBGAM","CBGV","CBGVA","CBGO","CBGOA","CBND","CBN","CBNA","CBV",
            "CBT","Δ8-THC","Δ8-THCA","THC","THC-C4","THCA-A","THCA-C4","THC-C1","THCA-C1-A","THCA-C1-B","THCV","THCVA",
@@ -175,11 +177,15 @@ for (i in 1:length(files)) {
     len_up <- length(results[[1]]$Upregulated)
     df_results$downregulated <- as.character(df_results$downregulated)
     df_results$upregulated <- as.character(df_results$upregulated)
-    df_results$downregulated[1:len_down] <- as.character(results[[1]]$Downregulated)
-    df_results$upregulated[1:len_up] <- results[[1]]$Upregulated
+    if (len_down>0){
+      df_results$downregulated[1:len_down] <- as.character(results[[1]]$Downregulated)
+    }
+    if (len_up>0){
+      df_results$upregulated[1:len_up] <- results[[1]]$Upregulated
+    }
   }
   results_all <- bind_rows(results_all,df_results)
 }
-write.csv(results_all,"C:/Users/user/Documents/deepSIBA/results/cannabis_pathways_a375/a375_cannabis_pathways.csv",row.names = F)
+write.csv(results_all,"cannabis_pathways_npc/npc_cannabis_pathways.csv",row.names = F)
 
 

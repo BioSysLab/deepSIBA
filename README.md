@@ -9,7 +9,6 @@
 
 Github repository of the study:
 > DeepSIBA: chemical structure-based inference of biological alterations using deep learning <br>
-> Link: https://github.com/BioSysLab/deepSIBA <br>
 > C.Fotis<sup>1(+)</sup>, N.Meimetis<sup>1+</sup>, A.Sardis<sup>1</sup>, LG. Alexopoulos<sup>1,2(*)</sup>
 
 

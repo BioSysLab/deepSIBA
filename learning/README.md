@@ -28,7 +28,7 @@ The input required for each function is described thoroughly in the deepSIBA_exa
 
 # Python dependencies
 
-- Tensorflow 1.12-1.15
+- Tensorflow 1.12-1.15 (for a tensorflow 2.3 implementation see here: https://github.com/NickMeim/deepSIBA_tf2)
 - Keras
 - theano
 - Numpy

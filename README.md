@@ -21,7 +21,7 @@ Predicting whether a chemical structure leads to a desired or adverse biological
 ```bash
 # clone the source code on your directory
 $ git clone https://github.com/BioSysLab/deepSIBA.git
-# for a tensorflow 2.3 implementation see here: https://github.com/NickMeim/deepSIBA_tf2
+# For a Tensorflow 2.3 implementation see here: https://github.com/NickMeim/deepSIBA_tf2
 ```
 
 ## Data
